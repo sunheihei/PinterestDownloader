@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), PinListener {
         progressBar.visibility = View.VISIBLE
     }
 
-    override fun AnalysisSuccess(PinterestList: MutableList<com.downloader.pinterestdownloader.Pinterest>) {
+    override fun AnalysisSuccess(PinterestList: MutableList<Pinterest>) {
         runOnUiThread {
             //dosomething
             showdialog(PinterestList)
