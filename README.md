@@ -4,7 +4,9 @@
 
 
 
+- [1](https://github.com/sunheihei/PinterestDownloader/blob/master/Screenshot_20191105-150909.png)
 
+- [2](https://github.com/sunheihei/PinterestDownloader/blob/master/Screenshot_20191105-150930.png)
 
 
 
