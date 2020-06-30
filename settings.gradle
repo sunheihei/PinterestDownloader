@@ -1,2 +1,3 @@
+include ':fbdownloader'
 include ':app', ':pinterestdownloader'
 rootProject.name='PinterestDemo'

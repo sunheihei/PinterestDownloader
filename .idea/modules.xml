@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PinterestDemo.iml" filepath="$PROJECT_DIR$/PinterestDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PinterestDemo-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PinterestDemo-app.iml" group="PinterestDemo/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PinterestDownloader-PinterestDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/PinterestDownloader-PinterestDemo.iml" group="PinterestDemo" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pinterestdownloader/com.github.sunheihei-pinterestdownloader.iml" filepath="$PROJECT_DIR$/.idea/modules/pinterestdownloader/com.github.sunheihei-pinterestdownloader.iml" group="PinterestDemo/pinterestdownloader" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fbdownloader/fbdownloader.iml" filepath="$PROJECT_DIR$/.idea/modules/fbdownloader/fbdownloader.iml" group="PinterestDemo/fbdownloader" />
       <module fileurl="file://$PROJECT_DIR$/pinterestdownloader/pinterestdownloader.iml" filepath="$PROJECT_DIR$/pinterestdownloader/pinterestdownloader.iml" />
     </modules>
   </component>

@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.downloader.pinterestdownloader.PinDownloadManager
 import com.downloader.pinterestdownloader.PinListener
 import com.downloader.pinterestdownloader.Pinterest
+import com.sunexample.fbdownloader.FacViDownloader
 import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.functions.Consumer
@@ -53,9 +54,18 @@ class MainActivity : AppCompatActivity(), PinListener {
 
             }
         }
+
+        /**
+         * Now, Facebook and Pinterest are supported
+         */
         btn_download.setOnClickListener {
-            val pin = PinDownloadManager()
-            pin.getPinUrl(et_pinurl.getText().toString(), this)
+            if (et_pinurl.getText().toString().contains("facebook")) {
+                Log.d("FB_url", FacViDownloader(et_pinurl.getText().toString()).url)
+            } else {
+                val pin = PinDownloadManager()
+                pin.getPinUrl(et_pinurl.getText().toString(), this)
+            }
+
         }
 
         btn_clear.setOnClickListener {
