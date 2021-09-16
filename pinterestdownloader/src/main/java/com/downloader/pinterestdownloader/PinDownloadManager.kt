@@ -1,12 +1,17 @@
 package com.downloader.pinterestdownloader
 
+import android.util.Log
 import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class PinDownloadManager public constructor() {
+
+    val TAG = "PinDownloadManager"
 
     private val ImageTypeList: List<String> =
         listOf("736x", "60x60", "474x", "170x", "600x315", "564x", "236x", "136x136", "orig")
@@ -17,20 +22,28 @@ class PinDownloadManager public constructor() {
             pinListener.StartAnalysis()
             Thread(Runnable {
                 try {
+//                    Log.d(TAG, "url:${url}")
                     var tempURL = getRedirectUrl(url)
+//                    Log.d(TAG, "tempURL:${tempURL}")
                     var realUrl = tempURL.substring(0, tempURL.indexOf("sent"))
+//                    Log.d(TAG, "realUrl:${realUrl}")
                     val doc = Jsoup.connect(realUrl).get()
-                    val elements = doc.getElementById("initial-state")
-                    val array = JSONObject(elements.data()).getJSONArray("resourceResponses")
-                    val obj = array.getJSONObject(0).getJSONObject("response").getJSONObject("data")
-                        .getJSONObject("images")
+                    val element = doc.getElementsByAttributeValue("rel","preload").attr("href")
+                    Log.d(TAG, "element : ${element}")
+                    pinListener.AnalysisSuccess(element)
 
-                    PinterestList.clear()
-                    for (i in 0 until ImageTypeList.size) {
-                        var pinterest = getPinterset(obj.getJSONObject(ImageTypeList[i]))
-                        PinterestList.add(pinterest)
-                    }
-                    pinListener.AnalysisSuccess(PinterestList)
+
+//                    val elements = doc.getElementById("initial-state")
+//                    val array = JSONObject(elements.data()).getJSONArray("resourceResponses")
+//                    val obj = array.getJSONObject(0).getJSONObject("response").getJSONObject("data")
+//                        .getJSONObject("images")
+//
+//                    PinterestList.clear()
+//                    for (i in 0 until ImageTypeList.size) {
+//                        var pinterest = getPinterset(obj.getJSONObject(ImageTypeList[i]))
+//                        PinterestList.add(pinterest)
+//                    }
+//                    pinListener.AnalysisSuccess(PinterestList)
                 } catch (e: Exception) {
                     pinListener.AnalysisFail()
                 }
@@ -38,12 +51,12 @@ class PinDownloadManager public constructor() {
         }
     }
 
-    private fun getPinterset(value: JSONObject): Pinterest {
-        var url = value.optString("url")
-        var width = value.optString("width")
-        var height = value.optString("height")
-        return Pinterest(url, width, height)
-    }
+//    private fun getPinterset(value: JSONObject): Pinterest {
+//        var url = value.optString("url")
+//        var width = value.optString("width")
+//        var height = value.optString("height")
+//        return Pinterest(url, width, height)
+//    }
 
     private fun getRedirectUrl(path: String): String {
         var url: String? = null;

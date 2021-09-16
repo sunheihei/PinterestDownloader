@@ -4,7 +4,7 @@ interface PinListener {
 
     fun StartAnalysis()
 
-    fun AnalysisSuccess(PinterestList: MutableList<Pinterest>)
+    fun AnalysisSuccess(url: String)
 
     fun AnalysisFail()
 

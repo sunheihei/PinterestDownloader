@@ -35,10 +35,10 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), PinListener {
 
-    val ImageTypeList: List<String> =
-        listOf("736x", "60x60", "474x", "170x", "600x315", "564x", "236x", "136x136", "orig")
-
-    var PinterestList: MutableList<Pinterest> = mutableListOf()
+//    val ImageTypeList: List<String> =
+//        listOf("736x", "60x60", "474x", "170x", "600x315", "564x", "236x", "136x136", "orig")
+//
+//    var PinterestList: MutableList<Pinterest> = mutableListOf()
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,12 +89,16 @@ class MainActivity : AppCompatActivity(), PinListener {
         progressBar.visibility = View.VISIBLE
     }
 
-    override fun AnalysisSuccess(PinterestList: MutableList<Pinterest>) {
+    override fun AnalysisSuccess(url: String) {
         runOnUiThread {
-            //dosomething
-            showdialog(PinterestList)
+            val TempleName = "${System.currentTimeMillis()}"
+            StartDownload(url, TempleName)
+
+            Toast.makeText(this, "Url:${url}", Toast.LENGTH_LONG).show()
+
         }
     }
+
 
     override fun AnalysisFail() {
         runOnUiThread {
@@ -102,20 +106,20 @@ class MainActivity : AppCompatActivity(), PinListener {
         }
     }
 
-    private fun showdialog(PinterestList: MutableList<Pinterest>) {
-        runOnUiThread() {
-            val selectSizeDialog = SelectSizeDialog.newInstance(PinterestList)
-            selectSizeDialog.setListener(object : SelectSizeDialog.UrlListener {
-                override fun geturl(url: String, name: String) {
-                    StartDownload(url, name)
-                    Toast.makeText(this@MainActivity, "Start Downloader..", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-            selectSizeDialog.show(supportFragmentManager, "SelectDialog")
-            progressBar.visibility = View.GONE
-        }
-    }
+//    private fun showdialog(PinterestList: MutableList<Pinterest>) {
+//        runOnUiThread() {
+//            val selectSizeDialog = SelectSizeDialog.newInstance(PinterestList)
+//            selectSizeDialog.setListener(object : SelectSizeDialog.UrlListener {
+//                override fun geturl(url: String, name: String) {
+//                    StartDownload(url, name)
+//                    Toast.makeText(this@MainActivity, "Start Downloader..", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//            })
+//            selectSizeDialog.show(supportFragmentManager, "SelectDialog")
+//            progressBar.visibility = View.GONE
+//        }
+//    }
 
 
     private fun StartDownload(downloadUrl: String, name: String) {
@@ -127,11 +131,11 @@ class MainActivity : AppCompatActivity(), PinListener {
         var request: DownloadManager.Request = DownloadManager.Request(Uri.parse(downloadUrl))
 
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        request!!.setTitle(Filename)
-        request!!.setShowRunningNotification(true)
-        request!!.setNotificationVisibility(android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        request!!.setDestinationInExternalPublicDir(
-            "/Download/" + getString(R.string.app_name) + "/",
+        request.setTitle(Filename)
+        request.setShowRunningNotification(true)
+        request.setNotificationVisibility(android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        request.setDestinationInExternalFilesDir(
+            this, "/Download/" + getString(R.string.app_name) + "/",
             name
         )
         var id: Long = downloadManager.enqueue(request)
